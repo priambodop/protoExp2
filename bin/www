@@ -8,6 +8,7 @@ var app = require('../app');
 var debug = require('debug')('protoexp2:server');
 var http = require('http');
 var socketIO = require('socket.io');
+var {generateMessage} = require('../public/javascripts/generateMessage');
 
 /**
  * Get port from environment and store in Express.
@@ -35,18 +36,19 @@ var io = socketIO(server);
 io.on('connection', (socket) => {
   console.log('Client has been connected !');
 
-  socket.emit('welcomeMessage', 'You are now joined to the chatroom!');
+  socket.emit('messageReceived', generateMessage('Admin', 'You are now joined the chat room :)'));
 
-  socket.broadcast.emit('welcomeMessage', 'A new user has been joined to the room!');
+  socket.broadcast.emit('messageReceived', generateMessage('Admin', 'A new user has been joined!'));
 
   socket.on('disconnect', () => {
     console.log('Client has been disconnected from the server');
   });
 
-  socket.on('createMessage', (data) => {
-    console.log(data);
-    socket.emit('MessageReceived', data);
+  socket.on('createMessage', (msg) => {
+    console.log('Message Received', msg);
+    io.emit('messageReceived',generateMessage(msg.from, msg.text));
   });
+
 
 });
 

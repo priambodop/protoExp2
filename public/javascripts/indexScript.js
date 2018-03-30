@@ -1,14 +1,23 @@
 var socket = io();
-var feedback = document.getElementById("welcomeMessage")
+
 
 socket.on('connect', function(){
-  console.log('Has been connected to socket.io server');
+  console.log('Connected to socket.io server');
+
 });
 
-socket.on('MessageReceived', function(data){
-  console.log(`Data has been received: ${data.from} and ${data.text}`);
+$('#chatForm').on('submit', function(e){
+  e.preventDefault();
+  socket.emit('createMessage', {
+    from: 'user',
+    text: $('[name=messages]').val()
+  });
 });
 
-socket.on('welcomeMessage', function(msg){
-  feedback.innerHTML = msg
+socket.on('messageReceived', function(msg){
+  console.log('got new message:', msg);
+
+  var listMessages = $('<li></li>')
+  listMessages.text(`${msg.from}: ${msg.text}`);
+  $('#chatList').append(listMessages);
 });
