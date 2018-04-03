@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title><%= title%></title>
+  </head>
+  <body>
+    <div class="game-area">
+
+    </div>
+
+    <script class="home" type="text/template">
+      <div>
+        <h1>This is home page</h1>
+        <button onclick="toSync()">to sync</button>
+      </div>
+    </script>
+
+    <script class="sync" type="text/template">
+      <div>
+        <h1>This is sync page</h1>
+        <button onclick="toChar()">to char</button>
+      </div>
+    </script>
+
+    <script class="char" type="text/template">
+      <div>
+        <h1>SUCCESS !!!</h1>
+      </div>
+    </script>
+
+
+    <script src="javascripts/jquery-3.3.1.min.js"></script>
+    <script src="javascripts/homeScript.js"></script>
+
+  </body>
+</html>
