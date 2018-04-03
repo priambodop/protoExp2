@@ -3,7 +3,6 @@ var socket = io();
 
 socket.on('connect', function(){
   console.log('Connected to socket.io server');
-
 });
 
 $('#chatForm').on('submit', function(e){
@@ -17,7 +16,7 @@ $('#chatForm').on('submit', function(e){
 socket.on('messageReceived', function(msg){
   console.log('got new message:', msg);
 
-  var listMessages = $('<li></li>')
+  var listMessages = $('<li></li>');
   listMessages.text(`${msg.from}: ${msg.text}`);
   $('#chatList').append(listMessages);
 });
